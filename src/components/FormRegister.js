@@ -15,6 +15,8 @@ export default class FormRegister extends Component {
         }
     }
 
+    
+
     registrarUsuario(name,email,password){
         auth.createUserWithEmailAndPassword(email,password)
         .then(user => console.log(user))
@@ -61,6 +63,22 @@ export default class FormRegister extends Component {
                     onChangeText = { (text) => this.setState({miniBio: text}) }
                 />
 
+                <TextInput  
+                    style = {styles.input}
+                    placeholder = 'Foto'
+                    keyboardType = 'default'
+                    value = {this.state.foto}
+                    secureTextEntry={true}
+                    onChangeText = { (text) => this.setState({foto: text}) }
+                />  
+
+                <Text>
+                    ¿Tienes una cuenta?
+                    <TouchableOpacity 
+                    onPress={()=> this.props.navigation.navigate('Login')}>
+                        Logueate aquí!
+                    </TouchableOpacity>
+                </Text> 
 
                 <TouchableOpacity 
                 onPress={()=> this.registrarUsuario(this.state.name, this.state.mail, this.state.password)}                
@@ -88,14 +106,14 @@ const styles = StyleSheet.create({
         marginVertical: 10
     },
     btn:{
-        backgroundColor: '#28a745',
+        backgroundColor: '#F998C9',
         paddingHorizontal: 10,
         paddingVertical: 6,
         textAlign: 'center',
         borderRadius: 4,
         borderWidth: 1,
         borderStyle: 'solid',
-        borderColor: '#28a745'
+        borderColor: '#F998C9'
 
     },
     textBtn:{

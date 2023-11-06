@@ -1,10 +1,12 @@
 import { Text, View } from 'react-native';
-import Register from './src/screens/Register';
+import MainNavigation from './src/navigation/MainNavigation';
 
 
 export default function App() {
   return (
-    <Register />
+   
+    <MainNavigation />
+    
   );
 }
 

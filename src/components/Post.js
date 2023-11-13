@@ -51,6 +51,13 @@ export default class Post extends Component {
         this.props.navigation.navigate('Comments', {id: this.props.id})
     }
 
+    botonPerfil(){
+        this.props.data.owner == auth.currentUser.email ?
+        this.props.navigation.navigate('Profile')
+        :
+        this.props.navigation.navigate('ProfileUser', { user: this.props.data.owner })
+    }
+
   render() {
     return (
       <View style = {styles.container}>
@@ -60,8 +67,11 @@ export default class Post extends Component {
         resizeMode='contain'
         />
         <Text>{this.props.data.descripcion}</Text>
+        <TouchableOpacity
+        onPress={() => this.botonPerfil()}
+        ><Text>{this.props.data.owner}</Text></TouchableOpacity>
         <View>
-            <Text>
+            <Text> Likes: 
                 {this.props.data.likes.length}
             </Text>
             {
@@ -78,6 +88,7 @@ export default class Post extends Component {
                 <FontAwesome name='heart-o' color='red' size={24}/>
                 </TouchableOpacity>
             }
+            <Text>Comentarios: {this.props.data.comentarios.length}</Text>
         </View>
         <View>
             <TouchableOpacity onPress={() => this.comentar()}>

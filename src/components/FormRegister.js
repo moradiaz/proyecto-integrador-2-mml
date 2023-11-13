@@ -98,7 +98,6 @@ export default class FormRegister extends Component {
                         <Text>Logueate aquí!</Text>
                     </TouchableOpacity>
                 </Text> 
-
                 <TouchableOpacity 
                 onPress={()=> this.registrarUsuario(this.state.name, this.state.mail, this.state.password)}                
                 style={styles.btn}>

@@ -1,6 +1,6 @@
 import { Text, View, TouchableOpacity, StyleSheet, FlatList } from 'react-native'
 import React, { Component } from 'react'
-import { auth, db} from '../firebase/config'
+import {auth, db} from '../firebase/config'
 import Post from '../components/Post'
 
 export default class Profile extends Component {
@@ -13,7 +13,7 @@ export default class Profile extends Component {
   }
   
   componentDidMount(){
-    db.collection('users').where('owner', '==', auth.currentUser.email).onSnapshot((docs)=>{
+    db.collection('users').where('owner', '==', this.props.route.params.user).onSnapshot((docs)=>{
         let arrDocs = []
         docs.forEach((doc) => {
           arrDocs.push({
@@ -24,10 +24,10 @@ export default class Profile extends Component {
 
         this.setState({
           usuarios : arrDocs
-        }, () => console.log(this.state.usuarios))
+        })
   
       })
-    db.collection('posts').where('owner', '==', auth.currentUser.email).onSnapshot((docs)=>{
+    db.collection('posts').where('owner', '==', this.props.route.params.user).onSnapshot((docs)=>{
         let arrPosts = []
         docs.forEach((doc)=> {
           arrPosts.push({
@@ -40,11 +40,6 @@ export default class Profile extends Component {
           posteos: arrPosts
         })
       })
-  }
-
-  logout(){
-    auth.signOut()
-    this.props.navigation.navigate('Register')
   }
   
   
@@ -63,9 +58,9 @@ export default class Profile extends Component {
               <Text>{item.data.miniBio}</Text>
               </View>
                }
-          />
-          
-          <Text>Cantidad de posteos: {this.state.posteos.length}</Text>
+            />
+            <Text>Posteos del usuario:{this.props.route.params.user}</Text>
+            <Text>Cantidad de posteos: {this.state.posteos.length}</Text>
             <FlatList
             data={this.state.posteos}
             keyExtractor={(item) => item.id.toString()}
@@ -75,22 +70,7 @@ export default class Profile extends Component {
                 </View>
             }
             />
-
-       <TouchableOpacity
-       style= {styles.signoutBtn}
-       onPress={()=>this.logout()}
-       >
-        <Text> Cerrar sesión </Text>
-       </TouchableOpacity>
       </View>
     )
   }
 }
-
-
-const styles = StyleSheet.create({
-  signoutBtn:{
-    backgroundColor:'red',
-    padding: 10
-  }
-})

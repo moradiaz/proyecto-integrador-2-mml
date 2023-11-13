@@ -46,6 +46,11 @@ export default class Profile extends Component {
     auth.signOut()
     this.props.navigation.navigate('Register')
   }
+
+  eliminarPosteo(idPost){
+    db.collection('posts').doc(idPost).delete()
+
+  }
   
   
   
@@ -72,8 +77,15 @@ export default class Profile extends Component {
             renderItem={({ item }) =>
                 <View>
                     <Post navigation={this.props.navigation} data={item.data} id={item.id} />
+                    <TouchableOpacity
+                    style={styles.btnEliminar}
+                    onPress={()=>this.eliminarPosteo(item.id)}> 
+                    <Text style={styles.textEliminar}>Elimar Posteo</Text>
+                    </TouchableOpacity>
                 </View>
             }
+
+      
             />
 
        <TouchableOpacity
@@ -90,7 +102,16 @@ export default class Profile extends Component {
 
 const styles = StyleSheet.create({
   signoutBtn:{
-    backgroundColor:'red',
-    padding: 10
+    backgroundColor:'#Be2542',
+    padding: 10,
+    borderRadius:6,
+    
+    
+  },
+  btnEliminar:{
+    backgroundColor:'#Be2542',
+    padding: 10,
+    borderRadius:6,
+    marginBottom: 10
   }
 })

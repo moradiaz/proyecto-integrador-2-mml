@@ -42,7 +42,10 @@ export default class Profile extends Component {
       })
   }
   
-  
+  eliminarPosteo(idPost){
+    db.collection('posts').doc(idPost).delete()
+
+  }
   
   
   render() {
@@ -67,6 +70,11 @@ export default class Profile extends Component {
             renderItem={({ item }) =>
                 <View>
                     <Post navigation={this.props.navigation} data={item.data} id={item.id} />
+                    <TouchableOpacity
+                    style={styles.btnElimanr}
+                    onPress={()=>this.eliminarPosteo(item.id)}> 
+                    <Text style={styles.textEliminar}>Elimar Posteo</Text>
+                    </TouchableOpacity>
                 </View>
             }
             />

@@ -13,7 +13,7 @@ export default class Comments extends Component {
     }
 
     componentDidMount(){
-        db.collection('posts').doc(this.props.route.params.id)
+        db.collection('posts').orderBy('createdAt', 'desc').doc(this.props.route.params.id)
         .onSnapshot((doc) => {
             this.setState({
                 infoPost: doc.data()

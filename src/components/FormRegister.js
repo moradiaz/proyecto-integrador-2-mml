@@ -12,7 +12,10 @@ export default class FormRegister extends Component {
             mail:'',
             password:'',
             miniBio:'',
-            foto:''
+            foto:'',
+            errorMail: false,
+            errorNombre: false,
+            errorPass: false
         }
     }
 
@@ -21,13 +24,14 @@ export default class FormRegister extends Component {
 
     registrarUsuario(name,email,password){
         if(name == ''){
-            alert('El campo name esta vacío')
+            return this.setState({errorNombre: true})
         }
         if(password == ''){
-            alert('El campo password esta vacío')
+            return this.setState({errorPass: true})
         }
         if(email == ''){
-            alert('El campo email esta vacío')
+            return this.setState({errorMail: true})
+           
         }
         auth.createUserWithEmailAndPassword(email,password)
         .then(user => db.collection('users').add({
@@ -48,6 +52,10 @@ export default class FormRegister extends Component {
       <View>
         <Text> Registrate </Text>
         <View>
+             {
+                this.state.errorNombre ?
+                <Text>Ingresa un nombre válido</Text>
+                :
                 <TextInput
                     style = {styles.input}
                     placeholder = 'Nombre'
@@ -55,6 +63,12 @@ export default class FormRegister extends Component {
                     value = {this.state.name}
                     onChangeText = { (text) => this.setState({name: text}) }
                 />
+             }
+                
+             {
+                this.state.errorMail ?
+                <Text> Ingresa un mail válido</Text>
+                :
 
                 <TextInput
                     style = {styles.input}
@@ -63,6 +77,12 @@ export default class FormRegister extends Component {
                     value = {this.state.mail}
                     onChangeText = { (text) => this.setState({mail: text}) }
                 />
+            }
+
+            {
+                this.state.errorPass ?
+                <Text> Ingresa una contraseña válida</Text>
+                :
 
                 <TextInput
                     style = {styles.input}
@@ -72,7 +92,7 @@ export default class FormRegister extends Component {
                     secureTextEntry={true}
                     onChangeText = { (text) => this.setState({password: text}) }
                 />
-
+            }
                 <TextInput  
                     style = {styles.input}
                     placeholder = 'Descripción'

@@ -20,6 +20,15 @@ export default class FormRegister extends Component {
     
 
     registrarUsuario(name,email,password){
+        if(name == ''){
+            alert('El campo name esta vacío')
+        }
+        if(password == ''){
+            alert('El campo password esta vacío')
+        }
+        if(email == ''){
+            alert('El campo email esta vacío')
+        }
         auth.createUserWithEmailAndPassword(email,password)
         .then(user => db.collection('users').add({
             owner: this.state.mail,
@@ -86,7 +95,7 @@ export default class FormRegister extends Component {
                     ¿Tienes una cuenta?
                     <TouchableOpacity 
                     onPress={()=> this.props.navigation.navigate('Login')}>
-                        Logueate aquí!
+                        <Text>Logueate aquí!</Text>
                     </TouchableOpacity>
                 </Text> 
 

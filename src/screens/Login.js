@@ -13,7 +13,7 @@ export default class Login extends Component {
                 <TouchableOpacity
                 onPress={()=> this.props.navigation.navigate('Register')}
                 > 
-                    Registrate aquí!
+                <Text>Registrate aquí!</Text>  
                 </TouchableOpacity>
             </Text>
         </View>

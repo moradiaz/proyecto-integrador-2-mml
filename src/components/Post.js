@@ -1,5 +1,5 @@
 import { Text, View, TouchableOpacity, StyleSheet, Image } from 'react-native'
-import {AntDesign} from '@expo/vector-icons' 
+import {FontAwesome} from '@expo/vector-icons' 
 
 import React, { Component } from 'react'
 import {db, auth} from '../firebase/config'
@@ -10,42 +10,38 @@ export default class Post extends Component {
         super(props)
         this.state = {
             likes: 0, 
-            estaMiLike: false
+            estaLike: false
         }
     }
 
     componentDidMount(){
         let validacionLike = this.props.data.likes.includes(auth.currentUser.email) 
         this.setState({
-            estaMiLike: validacionLike
+            estaLike: validacionLike
         })
     }
 
     like(){
-        db 
-        .collection('posts')
-        .doc(this.props.id) 
+        db.collection('posts').doc(this.props.id) 
         .update({
             likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email)
         })
         .then((resp) => {
             this.setState({
-                estaMiLike: true
+                estaLike: true
             })
         })
         .catch((error) => console.log(error))
     }
 
     dislike(){
-        db 
-        .collection('posts')
-        .doc(this.props.id) 
+        db.collection('posts').doc(this.props.id) 
         .update({
             likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email)
         })
         .then((res) => {
             this.setState({
-                estaMiLike: false
+                estaLike: false
             })
         })
         .catch((error) => console.log(error)) 
@@ -57,7 +53,7 @@ export default class Post extends Component {
 
   render() {
     return (
-      <View>
+      <View style = {styles.container}>
         <Image 
         source = {{uri: this.props.data.urlFoto ? this.props.data.urlFoto : '' }}
         style = {styles.img} 
@@ -66,20 +62,20 @@ export default class Post extends Component {
         <Text>{this.props.data.descripcion}</Text>
         <View>
             <Text>
-                {this.props.data.likes.lenght}
+                {this.props.data.likes.length}
             </Text>
             {
-                this.state.estaMiLike ? 
+                this.state.estaLike ? 
                 <TouchableOpacity
                 onPress={()=> this.dislike()}
                 >
-                    <AntDesign name='hearto' color='red' size={24}/>
+                    <FontAwesome name='heart' color='red' size={24}/>
                 </TouchableOpacity>
                 :
                 <TouchableOpacity
                 onPress={()=> this.like()}
                 >
-                <AntDesign name='hearto' color='red' size={24}/>
+                <FontAwesome name='heart-o' color='red' size={24}/>
                 </TouchableOpacity>
             }
         </View>
@@ -94,6 +90,9 @@ export default class Post extends Component {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        marginBottom: 14
+    },
     img: {
         width:'100%',
         height: 200

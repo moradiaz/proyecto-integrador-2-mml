@@ -30,22 +30,22 @@ export default class Search extends Component {
       })
     })
   }
+  actualizarInput(valor){
+    this.setState({
+      valor: valor
+    })
+  }
 
   usuarioFiltrado(name){
     let usersFiltrados = this.state.backup.filter((elm) => 
-      elm.data.name.toLowerCase().includes(name.toLowerCase()),
-      //elm.data.owner.toLowerCase().includes(name.toLowerCase()) 
+        elm.data.name.toLowerCase().includes(name.toLowerCase()) ||
+        elm.data.owner.toLowerCase().includes(name.toLowerCase()) 
     );
     this.setState({
       usuarios: usersFiltrados
     });
   }
 
-  actualizarInput(valor){
-    this.setState({
-      valor: valor
-    })
-  }
   tocarPerfil(owner) {
     owner == auth.currentUser.email ?
       this.props.navigation.navigate('Profile')
@@ -54,8 +54,6 @@ export default class Search extends Component {
   }
 
   
-
-
   render() {
     return (
       <View>

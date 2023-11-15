@@ -34,15 +34,13 @@ export default class FormComment extends Component {
             numberOfLines={4}
             style={styles.input}
         />
+        {this.state.comentario == '' ? '' :
         <TouchableOpacity
         onPress={()=> this.subirComentario(this.state.comentario)}
         >
-            <Text>
-                Enviar
-            </Text>
-
+        <Text style= {styles.btnComentario}> Enviar </Text>
         </TouchableOpacity>
-
+        }
       </View>
     )
   }
@@ -50,6 +48,17 @@ export default class FormComment extends Component {
 const styles = StyleSheet.create({
     input:{
         borderWidth: 4,
-        borderColor: '#2596be'
+        borderColor: '#F998C9',
+        marginTop: 16
+    },
+    btnComentario:{
+        backgroundColor: '#F998C9',
+        paddingHorizontal: 10,
+        paddingVertical: 6,
+        textAlign: 'center',
+        borderRadius: 4,
+        borderWidth: 1,
+        borderStyle: 'solid',
+        borderColor: '#F998C9'
     }
 })

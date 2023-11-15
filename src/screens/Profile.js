@@ -24,7 +24,7 @@ export default class Profile extends Component {
 
         this.setState({
           usuarios : arrDocs
-        }, () => console.log(this.state.usuarios))
+        })
   
       })
     db.collection('posts').where('owner', '==', auth.currentUser.email).onSnapshot((docs)=>{
@@ -49,11 +49,7 @@ export default class Profile extends Component {
 
   eliminarPosteo(idPost){
     db.collection('posts').doc(idPost).delete()
-
   }
-  
-  
-  
   
   render() {
     return (
@@ -102,14 +98,14 @@ export default class Profile extends Component {
 
 const styles = StyleSheet.create({
   signoutBtn:{
-    backgroundColor:'#Be2542',
+    backgroundColor:'#F998C9',
     padding: 10,
     borderRadius:6,
     
     
   },
   btnEliminar:{
-    backgroundColor:'#Be2542',
+    backgroundColor:'#F998C9',
     padding: 10,
     borderRadius:6,
     marginBottom: 10

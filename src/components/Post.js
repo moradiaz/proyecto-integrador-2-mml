@@ -1,5 +1,5 @@
 import { Text, View, TouchableOpacity, StyleSheet, Image } from 'react-native'
-import {FontAwesome} from '@expo/vector-icons' 
+import {FontAwesome, FontAwesome5} from '@expo/vector-icons' 
 
 import React, { Component } from 'react'
 import {db, auth} from '../firebase/config'
@@ -53,7 +53,7 @@ export default class Post extends Component {
 
     botonPerfil(){
         this.props.data.owner == auth.currentUser.email ?
-        this.props.navigation.navigate('Profile')
+            this.props.navigation.navigate('Profile')
         :
         this.props.navigation.navigate('ProfileUser', { user: this.props.data.owner })
     }
@@ -66,12 +66,14 @@ export default class Post extends Component {
         style = {styles.img} 
         resizeMode='contain'
         />
-        <Text>{this.props.data.descripcion}</Text>
+        <Text style = {styles.texto}>
+            {this.props.data.descripcion}
+        </Text>
         <TouchableOpacity
         onPress={() => this.botonPerfil()}
         ><Text>{this.props.data.owner}</Text></TouchableOpacity>
         <View>
-            <Text> Likes: 
+            <Text style = {styles.texto}> Likes: 
                 {this.props.data.likes.length}
             </Text>
             {
@@ -102,10 +104,16 @@ export default class Post extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        marginBottom: 14
+        marginBottom: 14,
+        borderRadius: 16,
+        
     },
     img: {
         width:'100%',
-        height: 200
+        height: 200,
+        marginTop: 10
+    },
+    texto:{
+        textAlign: 'center'
     }
 })

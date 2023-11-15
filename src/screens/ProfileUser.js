@@ -62,7 +62,7 @@ export default class Profile extends Component {
               </View>
                }
             />
-            <Text>Posteos del usuario:{this.props.route.params.user}</Text>
+            <Text>Posteos del usuario: {this.props.route.params.user}</Text>
             <Text>Cantidad de posteos: {this.state.posteos.length}</Text>
             <FlatList
             data={this.state.posteos}
@@ -70,11 +70,7 @@ export default class Profile extends Component {
             renderItem={({ item }) =>
                 <View>
                     <Post navigation={this.props.navigation} data={item.data} id={item.id} />
-                    <TouchableOpacity
-                    style={styles.btnElimanr}
-                    onPress={()=>this.eliminarPosteo(item.id)}> 
-                    <Text style={styles.textEliminar}>Elimar Posteo</Text>
-                    </TouchableOpacity>
+                    
                 </View>
             }
             />

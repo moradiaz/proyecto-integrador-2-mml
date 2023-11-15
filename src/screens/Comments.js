@@ -13,7 +13,7 @@ export default class Comments extends Component {
     }
 
     componentDidMount(){
-        db.collection('posts').orderBy('createdAt', 'desc').doc(this.props.route.params.id)
+        db.collection('posts').doc(this.props.route.params.id)
         .onSnapshot((doc) => {
             this.setState({
                 infoPost: doc.data()
@@ -36,11 +36,11 @@ export default class Comments extends Component {
                 </View> }
                 />
             :
+            
             ''
+            
         }
-        <FormComment
-        idPost = {this.props.route.params.id}
-        />
+        <FormComment idPost = {this.props.route.params.id}/>
       </View>
     )
   }

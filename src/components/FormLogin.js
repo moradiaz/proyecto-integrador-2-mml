@@ -43,12 +43,13 @@ export default class FormLogin extends Component {
                 onChangeText = {(text) => this.setState({password: text})}
             />
 
+            {this.state.mail == '' || this.state.password == '' ? '' :
             <TouchableOpacity 
                 style = {styles.btn}
                 onPress={() => this.loguearUsuario(this.state.mail, this.state.password)}>
                     <Text>Iniciar sesión</Text>
             </TouchableOpacity>
-
+            }
         </View>
       </View>
     )

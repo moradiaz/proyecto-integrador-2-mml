@@ -58,8 +58,8 @@ export default class Search extends Component {
     return (
       <View>
         <FormSearch usuarioFiltrado={(nombre) => this.usuarioFiltrado(nombre)} actualizarInput={(valor) => this.actualizarInput(valor)} />
-        {this.state.valor != '' ? 
-          
+        {this.state.valor != '' ?(
+          this.state.usuarios.length != 0 ?
             <FlatList
               data={this.state.usuarios}
               keyExtractor={(item) => item.id.toString()}
@@ -74,8 +74,10 @@ export default class Search extends Component {
               
             />
             :
-            <Text>No hay resultados</Text>
-        
+            <Text>El usuario no existe</Text>
+        ): (
+          <Text>Encontra un usuario</Text>
+        )
       }
       </View>
     )

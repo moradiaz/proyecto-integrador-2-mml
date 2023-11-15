@@ -1,6 +1,7 @@
-import { Text, View, TouchableOpacity, StyleSheet, FlatList } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, FlatList, Alert, Button, TextInput } from 'react-native'
 import React, { Component } from 'react'
 import { auth, db} from '../firebase/config'
+import firebase from 'firebase'
 import Post from '../components/Post'
 
 export default class Profile extends Component {
@@ -8,7 +9,9 @@ export default class Profile extends Component {
     super(props)
     this.state={
       usuarios:[], 
-      posteos: []
+      posteos: [], 
+      newpass: '', 
+      passactual: ''
     }
   }
   
@@ -50,6 +53,26 @@ export default class Profile extends Component {
   eliminarPosteo(idPost){
     db.collection('posts').doc(idPost).delete()
   }
+
+  reauthenticate = (passactual) => {
+    const user = firebase.auth().currentUser
+    const cred = firebase.auth.EmailAuthProvider.credential(user.email, passactual)
+    return user.reauthenticateWithCredential(cred)
+  }
+
+  cambiarContra = () => {
+
+    this.reauthenticate(this.state.passactual)
+    .then(() => {
+      const user = firebase.auth().currentUser
+      user.updatePassword(this.state.newpass)
+      .then(() => {
+        Alert.alert('se cambio la contraseña') 
+      })
+      .catch((error) => console.log(error))
+      })
+    .catch((error) => console.log(error))
+  }
   
   render() {
     return (
@@ -84,12 +107,35 @@ export default class Profile extends Component {
       
             />
 
-       <TouchableOpacity
+        <TextInput
+        placeholder='contraseña actual'
+        value = {this.state.passactual}
+        secureTextEntry = {true} 
+        onChangeText = {(text) => {this.setState({
+            passactual : text
+        })}}
+        
+        />
+       <TextInput
+        placeholder='nueva contraseña'
+        value = {this.state.newpass}
+        secureTextEntry = {true} 
+        onChangeText = {(text) => {this.setState({
+            newpass : text
+        })}}
+        
+        />
+        <Button
+        title = 'Cambiar contraseña' 
+        onPress={this.cambiarContra}
+        />
+
+      <TouchableOpacity
        style= {styles.signoutBtn}
        onPress={()=>this.logout()}
        >
         <Text> Cerrar sesión </Text>
-       </TouchableOpacity>
+       </TouchableOpacity> 
       </View>
     )
   }

@@ -9,6 +9,7 @@ import TabNavigation from './TabNavigation'
 import Comments from '../screens/Comments'
 import ProfileUser from '../screens/ProfileUser'
 
+
 const Stack = createNativeStackNavigator()
 
 export default function MainNavigation() {
@@ -53,6 +54,7 @@ export default function MainNavigation() {
             //    headerShown: false
             //}}
             />
+            
 
 
         </Stack.Navigator>

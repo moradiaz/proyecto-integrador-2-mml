@@ -54,19 +54,20 @@ export default class Profile extends Component {
     db.collection('posts').doc(idPost).delete()
   }
 
-  reauthenticate = (passactual) => {
+  reauthenticate(passactual) {
     const user = firebase.auth().currentUser
-    const cred = firebase.auth.EmailAuthProvider.credential(user.email, passactual)
+    const cred = firebase.auth().EmailAuthProvider.credential(auth.currentUser.email, passactual)
     return user.reauthenticateWithCredential(cred)
   }
 
-  cambiarContra = () => {
+  cambiarContra() {
 
     this.reauthenticate(this.state.passactual)
     .then(() => {
       const user = firebase.auth().currentUser
       user.updatePassword(this.state.newpass)
       .then(() => {
+        console.log('Actualizó la pass')
         Alert.alert('se cambio la contraseña') 
       })
       .catch((error) => console.log(error))
@@ -127,7 +128,7 @@ export default class Profile extends Component {
         />
         <Button
         title = 'Cambiar contraseña' 
-        onPress={this.cambiarContra}
+        onPress={()=> this.cambiarContra()}
         />
 
       <TouchableOpacity

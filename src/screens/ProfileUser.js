@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, StyleSheet, FlatList } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, FlatList, Image } from 'react-native'
 import React, { Component } from 'react'
 import {auth, db} from '../firebase/config'
 import Post from '../components/Post'
@@ -55,10 +55,19 @@ export default class Profile extends Component {
             <FlatList
             data={this.state.usuarios}
             keyExtractor={(item)=> item.id.toString() }
-            renderItem={({item}) => <View>
+            renderItem={({item}) => 
+            <View>
               <Text>{item.data.owner}</Text>
               <Text>{item.data.name}</Text>
               <Text>{item.data.miniBio}</Text>
+              {item.data.foto !== '' ? 
+                <Image 
+                source={{uri:item.data.foto}}
+                resizeMode='contain'
+                />
+                :
+                ''
+              }
               </View>
                }
             />

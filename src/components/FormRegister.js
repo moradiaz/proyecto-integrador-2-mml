@@ -42,7 +42,9 @@ export default class FormRegister extends Component {
             foto:this.state.foto
         })
         )
-        .then((resp) => console.log(resp))
+        .then(resp => {
+            this.props.navigation.navigate('InfoAdicional', {docId: resp.id})
+        })
         .catch( err => console.log(err))
     }
 
@@ -107,7 +109,6 @@ export default class FormRegister extends Component {
                     placeholder = 'Foto'
                     keyboardType = 'default'
                     value = {this.state.foto}
-                    secureTextEntry={true}
                     onChangeText = { (text) => this.setState({foto: text}) }
                 />  
 

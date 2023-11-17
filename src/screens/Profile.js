@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, StyleSheet, FlatList, Alert, Button, TextInput } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, FlatList, Alert, Button, TextInput, Image } from 'react-native'
 import React, { Component } from 'react'
 import { auth, db} from '../firebase/config'
 import firebase from 'firebase'
@@ -10,8 +10,8 @@ export default class Profile extends Component {
     this.state={
       usuarios:[], 
       posteos: [], 
-      newpass: '', 
-      passactual: ''
+      newPassword: '', 
+      currentPassword: ''
     }
   }
   
@@ -54,18 +54,18 @@ export default class Profile extends Component {
     db.collection('posts').doc(idPost).delete()
   }
 
-  reauthenticate(passactual) {
+  reauthenticate(currentPassword) {
     const user = firebase.auth().currentUser
-    const cred = firebase.auth().EmailAuthProvider.credential(auth.currentUser.email, passactual)
+    const cred = firebase.auth.EmailAuthProvider.credential(auth.currentUser.email, currentPassword)
     return user.reauthenticateWithCredential(cred)
   }
 
   cambiarContra() {
 
-    this.reauthenticate(this.state.passactual)
+    this.reauthenticate(this.state.currentPassword)
     .then(() => {
       const user = firebase.auth().currentUser
-      user.updatePassword(this.state.newpass)
+      user.updatePassword(this.state.newPassword)
       .then(() => {
         console.log('Actualizó la pass')
         Alert.alert('se cambio la contraseña') 
@@ -82,10 +82,19 @@ export default class Profile extends Component {
             <FlatList
             data={this.state.usuarios}
             keyExtractor={(item)=> item.id.toString() }
-            renderItem={({item}) => <View>
+            renderItem={({item}) => 
+            <View>
               <Text>{item.data.owner}</Text>
               <Text>{item.data.name}</Text>
               <Text>{item.data.miniBio}</Text>
+              {item.data.foto !== '' ? 
+                <Image 
+                source={{uri: item.data.foto}}
+                resizeMode='contain'
+                />
+                :
+                ''
+              }
               </View>
                }
           />
@@ -109,20 +118,20 @@ export default class Profile extends Component {
             />
 
         <TextInput
-        placeholder='contraseña actual'
-        value = {this.state.passactual}
+        placeholder='Contraseña actual'
+        value = {this.state.currentPassword}
         secureTextEntry = {true} 
         onChangeText = {(text) => {this.setState({
-            passactual : text
+            currentPassword : text
         })}}
         
         />
        <TextInput
-        placeholder='nueva contraseña'
-        value = {this.state.newpass}
+        placeholder='Nueva contraseña'
+        value = {this.state.newPassword}
         secureTextEntry = {true} 
         onChangeText = {(text) => {this.setState({
-            newpass : text
+            newPassword : text
         })}}
         
         />

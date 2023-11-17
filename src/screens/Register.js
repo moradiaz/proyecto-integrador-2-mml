@@ -18,7 +18,7 @@ export default class Register extends Component {
         loader: false
       })
         if (user!==null){
-            this.props.navigation.navigate('TabNavigation')
+            this.props.navigation.navigate('InfoAdicional')
         }
     })
 }

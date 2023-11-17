@@ -37,6 +37,7 @@ export default class   extends Component {
         {
             this.state.foto !== '' ?
                 <TouchableOpacity
+                style={styles.btn}
                 onPress={()=> this.actualizarDocDelUsuario()}
                 >
                     <Text>
@@ -47,6 +48,7 @@ export default class   extends Component {
             null
         }
         <TouchableOpacity
+        style={styles.btn}
         onPress={()=> this.props.navigation.navigate('Login')}
         >
             <Text>
@@ -60,5 +62,11 @@ export default class   extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1
+    },
+    btn:{
+    backgroundColor:'#F998C9',
+    padding: 10,
+    borderRadius:6,
+    marginTop:20
     }
 })

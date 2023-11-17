@@ -66,12 +66,12 @@ export default class Post extends Component {
         style = {styles.img} 
         resizeMode='contain'
         />
-        <Text style = {styles.texto}>
+        <Text style = {styles.descripcion}>
             {this.props.data.descripcion}
         </Text>
         <TouchableOpacity
         onPress={() => this.botonPerfil()}
-        ><Text>{this.props.data.owner}</Text></TouchableOpacity>
+        ><Text style = {styles.texto}>{this.props.data.owner}</Text></TouchableOpacity>
         <View>
             <Text style = {styles.texto}> Likes: 
                 {this.props.data.likes.length}
@@ -86,15 +86,16 @@ export default class Post extends Component {
                 :
                 <TouchableOpacity
                 onPress={()=> this.like()}
+                
                 >
                 <FontAwesome name='heart-o' color='red' size={24}/>
                 </TouchableOpacity>
             }
-            <Text>Comentarios: {this.props.data.comentarios.length}</Text>
+            <Text style = {styles.texto}>Comentarios: {this.props.data.comentarios.length}</Text>
         </View>
         <View>
             <TouchableOpacity onPress={() => this.comentar()}>
-                <Text>Comentar</Text>
+                <Text style = {styles.texto}>Comentar</Text>
             </TouchableOpacity>
         </View>
     </View>
@@ -104,8 +105,11 @@ export default class Post extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        marginBottom: 14,
-        borderRadius: 16,
+        marginBottom: 16,
+        backgroundColor: '#Dbe3e6', // White background for the "box"
+        borderRadius: 8, // Border radius for rounded corners
+        padding: 16,
+        elevation: 2, // Shadow for a slight lift
         
     },
     img: {
@@ -115,5 +119,9 @@ const styles = StyleSheet.create({
     },
     texto:{
         textAlign: 'center'
+    },
+    descripcion:{
+        textAlign: 'center',
+        fontWeight: 'bold'
     }
 })

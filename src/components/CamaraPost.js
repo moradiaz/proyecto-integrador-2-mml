@@ -66,7 +66,7 @@ export default class CamaraPost extends Component {
                 <TouchableOpacity
                     onPress={() => this.tomarFoto()}
                 >
-                    <Text>Tomar foto</Text>
+                    <Text style={styles.btnFoto}>Tomar foto</Text>
                 </TouchableOpacity>
             </>
             : this.state.permisos && this.state.mostrarCamara === false ?
@@ -111,5 +111,10 @@ const styles = StyleSheet.create({
     },
     img:{
         height: 300
+    },
+    btnFoto:{
+        backgroundColor:'#F998C9',
+        padding: 10,
+        borderRadius:6,
     }
 })

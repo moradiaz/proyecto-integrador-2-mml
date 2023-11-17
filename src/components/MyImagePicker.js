@@ -50,12 +50,14 @@ export default class MyImagePicker extends Component {
                     style = {styles.img}
                     />
                     <TouchableOpacity
+                      style={styles.btn}
                     onPress={() => this.aceptarImagen()}
                     >
                         <Text> Aceptar imagen</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
+                      style={styles.btn}
                     onPress={() => this.rechazarImagen()}
                     >
                         <Text> Rechazar imagen</Text>
@@ -64,6 +66,7 @@ export default class MyImagePicker extends Component {
                 
             :
             <TouchableOpacity
+            style={styles.btn}
             onPress={() => this.activarPicker()}
             >
                 <Text> Carga tu imagen desde libreria</Text>
@@ -77,5 +80,11 @@ export default class MyImagePicker extends Component {
 const styles = StyleSheet.create({
     img: {
         height: 200
+    },
+    btn:{
+    backgroundColor:'#F998C9',
+    padding: 10,
+    borderRadius:6,
+    marginTop:20
     }
 })

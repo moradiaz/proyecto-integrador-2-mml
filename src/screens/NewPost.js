@@ -51,7 +51,7 @@ export default class NewPost extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>NewPost</Text>
+        <Text style={styles.newPost}>NewPost</Text>
         {
           this.state.paso1 ?
             <CamaraPost
@@ -91,7 +91,14 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1
+  },
+  newPost:{
+    fontWeight:'bold',
+    marginLeft: 10,
+    fontSize:'50',
+    marginTop:10
   }
 })
+
 
 

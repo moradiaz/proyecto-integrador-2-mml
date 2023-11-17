@@ -30,7 +30,8 @@ export default class Home extends Component {
   render() {
     return (
       <View style={styles.contenedor}>
-        <FlatList
+        <FlatList 
+        style={styles.flatList}
         data = {this.state.posteos} 
         keyExtractor={(item) => item.id.toString()}
         renderItem={({item}) => <Post navigation = {this.props.navigation} data = {item.data} id = {item.id}/>}
@@ -42,8 +43,15 @@ export default class Home extends Component {
 
 const styles = StyleSheet.create({
   contenedor: {
-    flex:1
-  }
+    flex:1, 
+    backgroundColor: '#C7d0d4',
+    paddingHorizontal: 16,
+    paddingTop: 16,
+
+  },
+  flatList: {
+    marginTop: 16,
+  },
 })
 
 

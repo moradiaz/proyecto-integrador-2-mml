@@ -100,7 +100,6 @@ export default class FormRegister extends Component {
                     placeholder = 'Descripción'
                     keyboardType = 'default'
                     value = {this.state.miniBio}
-                    secureTextEntry={true}
                     onChangeText = { (text) => this.setState({miniBio: text}) }
                 />
 

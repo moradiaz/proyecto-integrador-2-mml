@@ -77,13 +77,13 @@ export default class Profile extends Component {
   
   render() {
     return (
-      <View>
-        <Text>Email de usuario : </Text>
+      <View style={styles.container}>
+        <Text style={styles.email}>Perfil del usuario: </Text>
             <FlatList
             data={this.state.usuarios}
             keyExtractor={(item)=> item.id.toString() }
             renderItem={({item}) => 
-            <View>
+            <View style={styles.userContainer}>
               <Text>{item.data.owner}</Text>
               <Text>{item.data.name}</Text>
               <Text>{item.data.miniBio}</Text>
@@ -104,7 +104,7 @@ export default class Profile extends Component {
             data={this.state.posteos}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) =>
-                <View>
+                <View style={styles.postContainer}>
                     <Post navigation={this.props.navigation} data={item.data} id={item.id} />
                     <TouchableOpacity
                     style={styles.btnEliminar}
@@ -118,6 +118,7 @@ export default class Profile extends Component {
             />
 
         <TextInput
+        style={styles.input}
         placeholder='Contraseña actual'
         value = {this.state.currentPassword}
         secureTextEntry = {true} 
@@ -127,6 +128,7 @@ export default class Profile extends Component {
         
         />
        <TextInput
+        style={styles.input}
         placeholder='Nueva contraseña'
         value = {this.state.newPassword}
         secureTextEntry = {true} 
@@ -153,17 +155,60 @@ export default class Profile extends Component {
 
 
 const styles = StyleSheet.create({
+  container:{
+    flex: 1,
+    backgroundColor: '#F5F5F5', // Light background color
+    paddingHorizontal: 16,
+    paddingTop: 16,
+  },
+  userContainer:{
+    marginBottom: 16,
+    backgroundColor: '#FFFFFF', // White background for the "box"
+    borderRadius: 8, // Border radius for rounded corners
+    padding: 16,
+    elevation: 2, // Shadow for a slight lift
+    
+  },
+  postContainer:{
+    marginBottom: 16,
+    backgroundColor: '#FFFFFF', // White background for the "box"
+    borderRadius: 8, // Border radius for rounded corners
+    padding: 16,
+    elevation: 2, // Shadow for a slight lift
+  },
+
   signoutBtn:{
     backgroundColor:'#F998C9',
     padding: 10,
     borderRadius:6,
+    marginTop:20
+  
     
-    
+  },
+  textEliminar: {
+    color: '#FFFFFF',
+    textAlign: 'center',
   },
   btnEliminar:{
     backgroundColor:'#F998C9',
     padding: 10,
     borderRadius:6,
     marginBottom: 10
-  }
+  },
+  input: {
+    height: 20,
+    paddingVertical: 15,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderStyle: 'solid',
+    borderRadius: 6,
+    marginVertical: 10
+},
+email:{
+  fontWeight:'bold',
+  paddingBottom: '50'
+
+}
 })
+
